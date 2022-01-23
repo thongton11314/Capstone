@@ -17,19 +17,20 @@ import requests
 #                    'county'
 #                }
 #        'chain' :  'Name'
-#        items: [
+#        'items' : [
 #                   {
-#                       item : 'name'
-#                       price : {
-#                                   'regular' : 'basic price'
-#                                   'promo' : 'sale price'    
-#                               }
-#                       description: 'description'
-#                       imange : 'url link'
-#                  },
-#                  {
+#                       'productId' : 'productId',
+#                       'categories' : 'categories',
+#                       'description' : 'description',
+#                       'itemId' : 'itemID',
+#                       'price' : {
+#                           'regular' : 'regular'
+#                           'promo' : 'promo'
+#                       }
+#                   }
+#                   {
 #                   ...Second Item    
-#                  }
+#                   }
 #               ]
 #   }
 
@@ -128,9 +129,9 @@ def buildDataHelper(rawItemsData, location):
                 "promo": itemDetail['price']['promo']
             }
         temp = {
+            'productId' : each['productId'],
             'categories' : each['categories'],
             'description' : each['description'],
-            'productId' : each['productId'],
             'itemId' : itemID,
             'price' : itemPrice
         }
