@@ -9,21 +9,28 @@ import requests
 
 # Item format return to front-end
 #   {
-#    location : 'address'
-#    items: [
-#               {
-#                   item : 'name'
-#                   price : {
-#                               'regular' : 'basic price'
-#                               'promo' : 'sale price'    
-#                           }
-#                   description: 'description'
-#                   imange : 'url link'
-#               },
-#               {
-#               ...Second Item    
-#               }
-#           ]
+#        'locationId' : 'locationId'
+#        'address' : {'addressLine1', 
+#                    'city', 
+#                    'state', 
+#                    'zipcode', 
+#                    'county'
+#                }
+#        'chain' :  'Name'
+#        items: [
+#                   {
+#                       item : 'name'
+#                       price : {
+#                                   'regular' : 'basic price'
+#                                   'promo' : 'sale price'    
+#                               }
+#                       description: 'description'
+#                       imange : 'url link'
+#                  },
+#                  {
+#                   ...Second Item    
+#                  }
+#               ]
 #   }
 
 krogerGroceries = ['FRED MEYER STORES', 'FRED', 'FOODSCO', 
@@ -42,21 +49,22 @@ def getToken():
     }
     r = requests.post(url, data=data, headers=headers)
     if (r.status_code >= 200 and r.status_code <= 299):
-        return r.json()
+        return r.json()['access_token']
     else:
-        return {}
+        return ""
 
 # This function will return all near by company own by Kroger
 # Some of the company is not necessary
 # Condition:
 #   radius must be less than 100 mile
-def getNearBy(token, zipcode, radius):
+def getGroceries(zipcode, radius):
     
     # Early exit, out of bounce
     if (radius > 100):
         return {}
+    token = getToken()
     url = 'https://api.kroger.com/v1/locations'
-    authentication = 'Bearer ' + str(token)
+    authentication = 'Bearer ' + token
     headers = {'Accept' : 'application/json', 
                 'Authorization' : authentication
     }
@@ -66,12 +74,16 @@ def getNearBy(token, zipcode, radius):
     }
     r = requests.get(url, headers=headers,params=params)
     if (r.status_code >= 200 and r.status_code <= 299):
-        return r.json()
+        nearBy = r.json()
+        if (bool(nearBy)):
+            return getGroceriesHelper(nearBy)
+        else:
+            return {}
     else:
         return {}
 
-# This function will return all near by groceries store only
-def getLocation(locationNearBy):
+# This function will return all near by groceries store only. This function is invoke in getGroceries()
+def getGroceriesHelper(locationNearBy):
     searchLocations = list()
     if (bool(locationNearBy['data'])):
         for each in locationNearBy['data']:
@@ -79,9 +91,12 @@ def getLocation(locationNearBy):
                 searchLocations.append(each)
     return searchLocations
 
-def searchHelper(token, locationID, itemName):
+
+# Resource: https://developer.kroger.com/reference/#operation/productGet
+def getItemHelper(locationID, itemName):
+    token = getToken()
     url = 'https://api.kroger.com/v1/products'
-    authentication = 'Bearer ' + str(token)
+    authentication = 'Bearer ' + token
     headers = {'Accept' : 'application/json', 
                 'Authorization' : authentication
     }
@@ -91,49 +106,71 @@ def searchHelper(token, locationID, itemName):
     }
     r = requests.get(url, headers=headers,params=params)
     if (r.status_code >= 200 and r.status_code <= 299):
-        return r.json()
+        return r.json()['data']
     else:
         return {}
+
+# This function will store list of item in to current address json
+# This function will be invoke in getItems
+# RawItems contain 0 or more items
+# Resouce: https://developer.kroger.com/reference/#operation/productGet 
+def buildDataHelper(rawItemsData, location):
+
+    listOfItems = []
+    temp = ''
+    for each in rawItemsData:
+        itemID = ''
+        itemPrice = {}
+        for itemDetail in each['items']:
+            itemID = itemDetail['itemId']
+            itemPrice = {
+                "regular": itemDetail['price']['regular'],
+                "promo": itemDetail['price']['promo']
+            }
+        temp = {
+            'categories' : each['categories'],
+            'description' : each['description'],
+            'productId' : each['productId'],
+            'itemId' : itemID,
+            'price' : itemPrice
+        }
+        listOfItems.append(temp)
+
+    data = {
+        'locationId' : location['locationId'],
+        'address' : location['address'],
+        'chain' : location['chain'],
+        'items' : listOfItems
+    }
+    return data
     
 # This function will return the search item as json file from locationNearBy
-def searchItem(token, locations, itemName):
+def getItemsInStore(locations, itemName):
     
     # Early exit, no location to search Item
     if (len(locations) < 0):
         return {}
     
     ## Location exist, starting search ##
-    items = []
-    for each in locations:
-        rawItem = searchHelper(token, each['locationId'], itemName)
-        if (bool(rawItem)):
-            formatedItem = itemsToJSON(rawItem, each)
-            items.append(formatedItem)
-    return items
-
-# This function will 
-def itemsToJSON(item, location):
-    pass
+    result = []
+    for location in locations:
+        rawItemsData = getItemHelper(location['locationId'], itemName)
+        if (bool(rawItemsData)):
+            data = buildDataHelper(rawItemsData, location)
+            result.append(data)
+    return result
 
 # main
-def main():
-    tokenDict = getToken()
-    
+def main():    
     # Check if token valid
-    if (bool(tokenDict)):
-        token = tokenDict['access_token']
-        zipcode = 98037
-        radius = 100
-        locationNearBy = getNearBy(token, zipcode, radius)
-        
-        # Check if location near by valid
-        if (bool(locationNearBy)):
-            locations = getLocation(locationNearBy)
-            item = 'milk'
-            listOfItems = searchItem(token, locations, item)
-            print(str(len(listOfItems)))
-        else:
-            print("Something wrong with Zipcode/Radius")
-    else:
-        print("Invalid token to access Kroger API")
+    zipcode = 98037
+    radius = 100
+    item = 'milk'
+    groceries = getGroceries(zipcode, radius)
+
+    # Check if location near by valid
+    if (bool(groceries)):       
+        data = getItemsInStore(groceries, item)
+        print(data[0])
+
 main()
