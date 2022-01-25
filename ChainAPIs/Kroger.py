@@ -50,7 +50,7 @@ class Kroger:
         data = {'grant_type': 'client_credentials', 
                 'scope': 'product.compact'
         }
-        r = requests.post(url=url, data=data, header=headers)
+        r = requests.post(url=url, data=data, headers=headers)
         if (r.status_code >= 200 and r.status_code <= 299):
             return r.json()['access_token']
         else:
@@ -164,7 +164,6 @@ class Kroger:
                 result.append(data)
         return result
 
-    @classmethod
     def search(self, zipcode, radius, item):    
         groceries = self.getGroceries(zipcode=zipcode, radius=radius)
 
