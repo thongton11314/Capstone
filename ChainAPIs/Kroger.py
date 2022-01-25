@@ -35,13 +35,12 @@ import requests
 #   }
 class Kroger:
     def __init__(self):
-        self.krogerGroceries = ['FRED MEYER STORES', 'FRED', 'FOODSCO', 
+        self.__krogerGroceries = ['FRED MEYER STORES', 'FRED', 'FOODSCO', 
                     'FOOD4LESS', 'DILLONS', 'QFC', 'PICK N SAVE', 
                     'SMITHS', 'RALPHS', 'QUIK STOP', 'OWENS', 'METRO MARKET', 
                     'KROGER', 'JAYC', 'GERBES', 'FRY', 'COPPS', 'CITYMARKET', 'BAKERS']
-        self.returnItems = []
 
-    def getToken(self):
+    def __getToken(self):
         KrogerAuthentication = 'Basic cmVtaW5kcHJvbW90ZWRwcm9kdWN0YXBwbGljYXRpb24tMTgyZTM5NGM5OWVmZjM4YTBjODI1NjRmMjQ1NTkxMzAyNTIxMDI4NDIyNDI0Mzg1NDg0OlNmSjBsSnJXQ2FiNUFXSG9NQ2dkVldGbW5ETFVPYkluZDJnN3JIRE8='
         url = 'https://api.kroger.com/v1/connect/oauth2/token'
         headers = {'Content-Type' : 'application/x-www-form-urlencoded', 
@@ -60,12 +59,12 @@ class Kroger:
     # Some of the company is not necessary
     # Condition:
     #   radius must be less than 100 mile
-    def getGroceries(self, zipcode, radius):
+    def __getGroceries(self, zipcode, radius):
         
         # Early exit, out of bounce
         if (radius > 100):
             return {}
-        token = self.getToken()
+        token = self.__getToken()
         url = 'https://api.kroger.com/v1/locations'
         authentication = 'Bearer ' + token
         headers = {'Accept' : 'application/json', 
@@ -80,23 +79,23 @@ class Kroger:
             nearBy = r.json()
             if (bool(nearBy)):                              # check if json file
                 if ('data' in nearBy):                      # check if key('data') exist
-                    return self.getGroceriesHelper(nearBy)  # check
+                    return self.__getGroceriesHelper(nearBy)  # check
         else:
             return {}
 
     # This function will return all near by groceries store only. This function is invoke in getGroceries()
-    def getGroceriesHelper(self, locationNearBy):
+    def __getGroceriesHelper(self, locationNearBy):
         searchLocations = []
         if (bool(locationNearBy['data'])):
             for each in locationNearBy['data']:
-                if (each['chain'] in self.krogerGroceries):
+                if (each['chain'] in self.__krogerGroceries):
                     searchLocations.append(each)
         return searchLocations
 
 
     # Resource: https://developer.kroger.com/reference/#operation/productGet
-    def getItemHelper(self, locationID, itemName):
-        token = self.getToken()
+    def __getItemHelper(self, locationID, itemName):
+        token = self.__getToken()
         url = 'https://api.kroger.com/v1/products'
         authentication = 'Bearer ' + token
         headers = {'Accept' : 'application/json', 
@@ -119,7 +118,7 @@ class Kroger:
     # This function will be invoke in getItems
     # RawItems contain 0 or more items
     # Resouce: https://developer.kroger.com/reference/#operation/productGet 
-    def buildDataHelper(self, rawItemsData, location):
+    def __buildDataHelper(self, rawItemsData, location):
         listOfItems = []
         temp = ''
         for each in rawItemsData:
@@ -149,7 +148,7 @@ class Kroger:
         return data
     
     # This function will return the search item as json file from locationNearBy
-    def getItemsInStore(self, locations, itemName):
+    def __getItemsInStore(self, locations, itemName):
         
         # Early exit, no location to search Item
         if (len(locations) < 0):
@@ -158,18 +157,18 @@ class Kroger:
         ## Location exist, starting search ##
         result = []
         for location in locations:
-            rawItemsData = self.getItemHelper(location['locationId'], itemName)
+            rawItemsData = self.__getItemHelper(location['locationId'], itemName)
             if (bool(rawItemsData)):
-                data = self.buildDataHelper(rawItemsData=rawItemsData, location=location)
+                data = self.__buildDataHelper(rawItemsData=rawItemsData, location=location)
                 result.append(data)
         return result
 
     def search(self, zipcode, radius, item):    
-        groceries = self.getGroceries(zipcode=zipcode, radius=radius)
+        groceries = self.__getGroceries(zipcode=zipcode, radius=radius)
 
         # Check if location near by valid
         if (bool(groceries)):       
-            data = self.getItemsInStore(locations=groceries, itemName=item)
+            data = self.__getItemsInStore(locations=groceries, itemName=item)
             return data
         else:
             return []
