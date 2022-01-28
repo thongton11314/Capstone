@@ -1,5 +1,5 @@
 import json
-import requests
+from Libs.requests import requests
 
 # Kroger Grocery chains
 #   FRED MEYER STORES, FRED, FOODSCO

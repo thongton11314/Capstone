@@ -18,20 +18,7 @@ def SendingEmail(data):
 
         #Terminating the session 
         smtp.quit() 
-        print ("Email sent successfully!") 
+        return "Sent successfully"
 
     except Exception as ex: 
         print("Something went wrong....", ex)
-
-        
-senderEmail = 'sinhvienngheouw@gmail.com'
-senderPassword = 'Ngheo123456.'
-receiverEmail = 'tonthong@uw.edu'
-message = 'This is a test from auto sending email from Pythoncode'
-data = {
-    'senderEmail' : senderEmail, 
-    'senderEmailPassword' : senderPassword,
-    'receiverEmail' : receiverEmail,
-    'message' : message
-}
-SendingEmail(data)
