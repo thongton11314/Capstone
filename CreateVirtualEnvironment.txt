@@ -1,0 +1,15 @@
+# Create virtual environment
+python3 -m venv "project_name"
+
+# Activate virtual environment
+source "project_name"/bin/activate
+
+# Deactivate
+deactivate
+
+# Check library
+pip list
+
+# Install library
+pip install "library_name"
+
