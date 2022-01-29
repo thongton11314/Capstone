@@ -2,7 +2,7 @@ import smtplib
 
 # Document:
 # https://www.courier.com/blog/three-ways-to-send-emails-using-python-with-code-tutorials/
-def SendingEmail(data):
+def sendEmail(data):
     try: 
         #Create your SMTP session 
         smtp = smtplib.SMTP('smtp.gmail.com', 587) 

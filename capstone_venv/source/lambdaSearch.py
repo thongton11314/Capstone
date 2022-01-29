@@ -1,7 +1,7 @@
 import json
-from Kroger import Kroger
+from kroger import Kroger
 
-def search(event=None, context=None):
+def lambda_search(event=None, context=None):
     k = Kroger()
     items = k.search(98036, 10, 'egg')
     if (len(items) <= 0):

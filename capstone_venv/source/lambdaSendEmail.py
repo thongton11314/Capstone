@@ -1,7 +1,7 @@
 import json
-from SendEmail import *
+from sendEmail import *
 
-def sent(event=None, context=None):
+def lambda_sendEmail(event=None, context=None):
      
     senderEmail = 'sinhvienngheouw@gmail.com'
     senderPassword = 'Ngheo123456.'
@@ -13,7 +13,7 @@ def sent(event=None, context=None):
         'receiverEmail' : receiverEmail,
         'message' : message
     }
-    if (SendingEmail(data) == 'Sent successfully'):
+    if (sendEmail(data) == 'Sent successfully'):
         return {
                 'statusCode': 200,
                 'headers': {'Content-Type': 'application/json'},
