@@ -1,5 +1,5 @@
 import json
-from build_libraries.Kroger import Kroger
+from Kroger import Kroger
 
 def search(event=None, context=None):
     k = Kroger()

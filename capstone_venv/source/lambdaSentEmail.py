@@ -1,5 +1,5 @@
 import json
-from build_libraries.SendEmail import *
+from SendEmail import *
 
 def sent(event=None, context=None):
      
