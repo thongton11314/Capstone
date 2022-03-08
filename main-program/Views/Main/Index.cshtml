@@ -1,0 +1,135 @@
+﻿@model program.Models.UserInputModel
+
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic" />
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Droid+Serif" />
+<style>
+    html, body {
+        background: #2F1E27;
+        width: 100%;
+        height: 100%;
+    }
+
+    body {
+        counter-reset: section;
+        text-align: center;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+    }
+
+    .container{
+      position:relative;
+      top:50px;
+    } 
+
+    .container h1, .container span{
+      font-family:"Pt Sans", helvetica, sans-serif;
+    }
+
+    .container h1{
+      text-align:center;
+      color:#fff;
+      font-weight:100;
+      font-size:2em;
+      margin-bottom:10px;
+    }
+
+    .container h2{
+      font-family:"droid serif";
+      font-style:italic;
+      color:#d3b6ca;
+      text-align:center;
+      font-size:1.2em;
+    }
+
+    .container form span:before {
+      counter-increment:section;
+      content:counter(section);
+      border:2px solid #4c2639;
+      width:40px;
+      height:40px;
+      color:#fff;
+      display:inline-block;
+      border-radius:50%;
+      line-height:1.6em;
+      font-size:1.5em;
+      position:relative;
+      left:-22px;
+      top:-11px;
+      background:#2F1E27;
+    }
+
+    form{
+      margin-top:25px;
+      display:inline-block;
+    }
+
+    .fields{
+      border-left:2px solid #4c2639
+    }
+
+    .container span{
+        margin-bottom:22px;
+        display:inline-block;
+    }
+
+    .container span:last-child{
+       margin-bottom:-11px;
+    }
+
+    input{
+      border:none;
+      outline:none;
+      display:inline-block;
+      height:34px;
+      vertical-align:middle;
+      position:relative;
+      bottom:14px;
+      right:9px;
+      border-radius:22px;
+      width:220px;
+      box-sizing:border-box;
+      padding:0 18px;
+    }
+
+    .input-button{
+      background:rgba(197,62,126,.33) ! important;
+      color:#fff;
+      position:relative;
+      left:9px;
+      top:25px;
+      width:100px;
+      cursor:pointer;
+}
+</style>
+
+<head>
+
+</head>
+
+<body>
+    <div class="container">
+        <h2>Search for your favorite local grocery item</h2>
+        <h1>At a lower price!</h1>
+        <form id="join-us" asp-action="Search" method="POST">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="fields">
+                <span>
+                    <input asp-for="ItemName" placeholder="milk" type="text" />
+                </span>
+                <br>
+                <span>
+                    <input asp-for="ZipCode" placeholder="98001" />
+                </span>
+            </div>
+            <div class="submit">
+                <input type="submit" value="Search" class="input-button" />
+            </div>
+        </form>
+    </div>
+</body>
+
+    
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
