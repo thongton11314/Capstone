@@ -6,7 +6,7 @@
   
 ## Key Features
   Core objectives application that must be completed: <br/>
-    Available on the internet <br/>
+    _ Available on the internet <br/>
     Accessible cross-platform and cross-browsers <br/>
     User login/logout <br/>
     User inputs desired grocery item(s) <br/>
