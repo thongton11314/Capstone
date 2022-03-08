@@ -23,5 +23,4 @@
 
 ## AWS Data Flow
 ![alt text](https://github.com/thongton11314/Capstone/blob/main/data-flow/AWS_Data_Flow.drawio.png)
-https://tinyurl.com/3jyk6nf3
 
