@@ -1,0 +1,150 @@
+﻿<style>
+/*
+*
+* ==========================================
+* CUSTOM UTIL CLASSES
+* ==========================================
+*
+*/
+html, body {
+    background: #2F1E27;
+}
+
+.container{
+    position: relative;
+} 
+
+
+/* List with bullets */
+.list-bullets {
+    list-style: none;
+}
+
+.list-bullets li {
+    display: flex;
+    align-items: center;
+}
+
+.list-bullets li::before {
+    content: '';
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #5784d7;
+    border: 2px solid #8fb3f5;
+    display: block;
+    margin-right: 1rem;
+}
+
+/* Unordered list with custom numbers style */
+ol.custom-numbers {
+    list-style: none;
+}
+
+ol.custom-numbers li {
+    counter-increment: my-awesome-counter;
+}
+
+ol.custom-numbers li::before {
+    content: counter(my-awesome-counter) ". ";
+    color: #2b90d9;
+    font-weight: bold;
+}
+
+li {
+    font-style: italic;
+}
+
+/*
+*
+* ==========================================
+* Other Styles
+* ==========================================
+*
+*/
+.store-address, .store-name {
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+}
+
+.item-price{
+    font-style: normal;
+}
+
+.scroll-box {
+    height: 500px;
+    overflow: auto;
+}
+
+li:first-child{
+      background-color: yellow;
+}
+
+.info-board{
+    color: black;
+    background-color: #e3d886;
+    position: sticky;
+    top: 20px;
+    width: 200px;
+    height: 150px;
+    border: 2px solid yellow;
+    padding: 10px;
+    margin-left: 0;
+}
+
+.back-to-search{
+    padding-top: 20px;
+}
+
+
+</style>
+
+<body>
+    
+    <div class="container py-5">
+        <div class="info-board">
+            Note: The highlighted items are the cheapest in the given stores.<br>
+            <a class="back-to-search" asp-controller="Main" asp-action="Index">Return to Search</a>
+        </div>
+        <div class="row py-5">
+            <br>
+            <div class="col-lg-7 mx-auto">
+                @foreach (string store in ViewData.Keys)
+                {
+                    <div class="card shadow mb-4">
+                        <div class="card-body p-5 scroll-box">
+                            @{var data = ViewData[store] as DisplayModel; }
+                            <DisplayData>
+                                <p class="store-name">STORE:  @data.storeName</p>
+                                <p class="store-address">ADDRESS: @data.storeAddress</p>
+                                @Html.ActionLink("Navigate to this store", "Navigate", "Main", new { address = data.storeAddress, chain = data.storeName }, null)
+                                <br>
+                                <ol class="custom-numbers">
+                                    @foreach (var item in data.itemsInfo.Keys)
+                                    {
+                                        <li class="mb-2">
+                                            Item Name: @item
+                                            <p class="item-price">Item Price: $@data.itemsInfo[item]</p>
+                                        </li>
+                                    }
+                                </ol>
+                            </DisplayData>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</body>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Droid+Serif" />
+</head>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
