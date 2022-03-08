@@ -17,7 +17,7 @@
 
 
 ## Market Value
-   <ul>Shoppers can now have the ability to pick the best prices for their grocery items. This application would give shoppers cheaper options if there are any when they go grocery      shopping. When they check the prices between grocery stores by using the application, they know what is worth paying. The shoppers are able to save additional money </ul>
+  Shoppers can now have the ability to pick the best prices for their grocery items. This application would give shoppers cheaper options if there are any when they go grocery       shopping. When they check the prices between grocery stores by using the application, they know what is worth paying. The shoppers are able to save additional money 
    
-   </ul> Additionally, advertising in the application could be a great idea. It benefits both shoppers and businesses. It is a win-win situation if businesses have a sales campaign and    appeal to shoppers </ul>
+  Additionally, advertising in the application could be a great idea. It benefits both shoppers and businesses. It is a win-win situation if businesses have a sales campaign and     appeal to shoppers
 
