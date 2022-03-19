@@ -1,0 +1,118 @@
+﻿html, body{
+    margin: auto !important;
+}
+
+.sticky {
+    position:fixed;
+    top: 0;
+    width: 100%;
+}
+
+.unstick {
+    position: relative;
+    top: 0;
+    width: 100%;
+}
+
+.sticky + .content {
+  padding-top: 60px;
+}
+
+/*
+#navbar a.active:current {
+    background-color: rebeccapurple;
+    color: white;
+}turn this into current tab or something highlight
+    */
+
+div.nav-container {
+    overflow: hidden;
+    font-family: Raleway;
+    margin: auto;
+    padding: 1em 1em;
+    text-align: center;
+    border-bottom: 1px solid white;
+}
+
+div.nav-container a {
+    color: #FFF;
+    text-decoration: none;
+    font: 20px Raleway;
+    margin: 0px 10px;
+    padding: 10px 10px;
+    position: relative;
+    z-index: 0;
+    cursor: pointer;
+}
+
+div.nav-container-login {
+    font-family: Raleway;
+    padding: 1em 1em;
+    text-align: center;
+    display: contents;
+}
+
+div.nav-container-login a {
+    color: #FFF;
+    text-decoration: none;
+    font: 20px Raleway;
+    margin: 0px 10px;
+    padding: 10px 10px;
+    position: relative;
+    z-index: 0;
+    cursor: pointer;
+}
+
+div.nav-container-login form{
+    display: contents;
+}
+
+.purple {
+    background: #673ab7;
+}
+
+.copy-right {
+    color: black;
+}
+
+/* Top and Bottom borders come in */
+div.topBotomBordersIn a:before, div.topBotomBordersIn a:after {
+    position: absolute;
+    left: 0px;
+    width: 100%;
+    height: 2px;
+    background: #FFF;
+    content: "";
+    opacity: 0;
+    transition: all 0.3s;
+}
+
+div.topBotomBordersIn a:before {
+    top: 0px;
+    transform: translateY(-10px);
+}
+
+div.topBotomBordersIn a:after {
+    bottom: 0px;
+    transform: translateY(10px);
+}
+
+div.topBotomBordersIn a:hover:before, div.topBotomBordersIn a:hover:after {
+    opacity: 1;
+    transform: translateY(0px);
+}
+
+footer {
+    display: flex;
+    background-color: #673ab7;
+    color: lightgray;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    width: 100%;
+    border-top: 1px solid white;
+    justify-content: center;
+    align-items: center;
+}

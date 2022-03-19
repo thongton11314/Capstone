@@ -1,0 +1,29 @@
+﻿
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="margin: auto;">
+    <h1 style="background-color: yellow">Disable Email Notifications for Items in Your Grocery List</h1>
+
+    <h3>Are you sure you want to disable email notifications? </h3>
+    <p>Your will stop receiving weekly updates on discounted grocery items via email.</p>
+
+    @using (Html.BeginForm("DisableItemsAlert", "Manage", FormMethod.Post, null))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+        <div>
+            <input type="submit" value="Disable" />
+        </div>
+    }
+    @using (Html.BeginForm("Index", "Manage", FormMethod.Get, null))
+    {
+        @Html.AntiForgeryToken()
+        <div>
+            <input type="submit" value="Back To Manager" />
+        </div>
+    }
+</body>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,31 @@
+﻿@model CapstoneApp.Models.CreateItemViewModel
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="~/styles/css/index.css" />
+</head>
+
+<body>
+    <div class="container">
+        <h1>ADD YOUR ITEM BELOW</h1>
+        @using (Html.BeginForm("CreateItemsList", "Manage", FormMethod.Post, new { @id = "join-us", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+            <div class="fields">
+                @Html.LabelFor(m => m.ItemName, new { @style = "display: block;" })<br>
+                <span>
+                    @Html.TextBoxFor(m => m.ItemName, new { @placeholder = "milk" })
+                </span>
+                <br>
+            </div>
+            <div class="submit">
+                <input type="submit" value="Create" class="input-button" />
+            </div>
+        }
+        <div style="margin-top: 30px;">
+            @Html.ActionLink("Back To Manager", "Index", "Manage", null, null)
+        </div>
+    </div>
+
+</body>

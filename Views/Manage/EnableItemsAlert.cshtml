@@ -1,0 +1,36 @@
+﻿@model CapstoneApp.Models.EnableItemsAlertViewModel
+
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="margin: auto;">
+    <h1 style="background-color: yellow">Enable Email Notifications for Items in Your Grocery List</h1>
+
+    <h3>Are you sure you want to enable email notifications? </h3>
+    <p>Your will receive weekly updates on discounted grocery items via email.</p>
+    <h4>
+        Enter your Zipcode below to receive email alerts
+        for your item(s) from your local supermarkets:
+    </h4>
+
+    @using (Html.BeginForm("EnableItemsAlert", "Manage", FormMethod.Post, null))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+        <div>
+            @Html.TextBoxFor(m => m.ZipCode, new { @placeholder = "93801" })
+            <input type="submit" value="Submit" />
+        </div>
+    }
+    @using (Html.BeginForm("Index", "Manage", FormMethod.Get, null))
+    {
+        @Html.AntiForgeryToken()
+        <div>
+            <input type="submit" value="Back To Manager" />
+        </div>
+    }
+</body>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

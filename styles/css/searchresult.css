@@ -1,0 +1,111 @@
+﻿html, body {
+    background-image: url(../images/search-result-bg.jpg);
+    background-position: center;
+    background-repeat: repeat;
+    background-size: cover;
+    height: 100%;
+    margin: auto;
+}
+
+.container {
+    position: relative;
+    display: inline-flex;
+    margin: auto;
+    margin-top: 40px;
+}
+
+
+/* List with bullets */
+.list-bullets {
+    list-style: none;
+}
+
+.list-bullets li {
+    display: flex;
+    align-items: center;
+}
+
+.list-bullets li::before {
+    content: '';
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #5784d7;
+    border: 2px solid #8fb3f5;
+    display: block;
+    margin-right: 1rem;
+}
+
+/* Unordered list with custom numbers style */
+ol.custom-numbers {
+    list-style: none;
+}
+
+ol.custom-numbers li {
+counter-increment: my-awesome-counter;
+}
+
+ol.custom-numbers li::before {
+    content: counter(my-awesome-counter) ". ";
+    color: #2b90d9;
+    font-weight: bold;
+}
+
+li {
+    font-style: italic;
+}
+
+.store-address, .store-name {
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+}
+
+.item-price {
+    font-style: normal;
+}
+
+.scroll-box {
+    height: 500px;
+    overflow: auto;
+}
+
+li:first-child {
+    background-color: yellow;
+}
+
+.info-board {
+    color: black;
+    background-color: #e3d886;
+    position: sticky;
+    top: 20px;
+    width: 200px;
+    height: 150px;
+    border: 2px solid yellow;
+    padding: 10px;
+    margin-left: 100px;
+    margin-right: 50px;
+}
+
+.card-body-custom {
+    background-color: lightgrey;
+    border-style: groove;
+    border-color: bisque;
+    border-width: thick;
+    margin-bottom: 50px;
+    padding: 20px;
+    padding-right: 30px;
+}
+
+.back-to-search:link .back-to-search:visited {
+    background-color: #f44336;
+    color: white;
+    padding: 14px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.back-to-search:hover .back-to-search:active {
+    background-color: red;
+}
