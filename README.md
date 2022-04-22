@@ -1,7 +1,7 @@
 # Capstone
 
 ## Documentation
-  Check the Documentation.pdf file for more detail. [Text to show](https://github.com/thongton11314/Capstone/blob/main/Documentation.pdf)
+  Check the Documentation.pdf file for more detail. [Detail](https://github.com/thongton11314/Capstone/blob/main/Documentation.pdf)
 
 ## Overview
   We implement an application that embraces multiple Computer Science concepts which include but are not limited to: Cloud Computing, Web Application,  Database, Search Engines,     APIs, front-end, back-end, and more to create an application that serves as a notifier on discounts or reduced prices on grocery item(s). 
