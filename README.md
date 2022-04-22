@@ -25,6 +25,3 @@
    
   Additionally, advertising in the application could be a great idea. It benefits both shoppers and businesses. It is a win-win situation if businesses have a sales campaign and     appeal to shoppers
 
-## AWS Data Flow
-![alt text](https://github.com/thongton11314/Capstone/blob/main/data-flow/AWS_Data_Flow.drawio.png)
-
