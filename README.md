@@ -1,4 +1,8 @@
 # Capstone
+
+## Documentation
+  Check the Documentation.pdf file for more detail
+
 ## Overview
   We implement an application that embraces multiple Computer Science concepts which include but are not limited to: Cloud Computing, Web Application,  Database, Search Engines,     APIs, front-end, back-end, and more to create an application that serves as a notifier on discounts or reduced prices on grocery item(s). 
 
