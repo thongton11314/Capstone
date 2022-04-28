@@ -27,6 +27,20 @@ import requests
 #                           'regular' : 'regular'
 #                           'promo' : 'promo'
 #                       }
+#                       'image' : [
+#                            {
+#                            "id": "type",
+#                            "perspective": "view",
+#                            "default": true,
+#                            "sizes": [
+#                                        {
+#                                        "id": "unique id picture",
+#                                        "size": "small, medium, large",
+#                                        "url": "https://www.kroger.com/product/images/medium/front/0001111041700"
+#                                        }
+#                                   ]
+#                            }
+#                            ],
 #                   }
 #                   {
 #                   ...Second Item    
@@ -135,7 +149,8 @@ class Kroger:
                 'categories' : each['categories'],
                 'description' : each['description'],
                 'itemId' : itemID,
-                'price' : itemPrice
+                'price' : itemPrice,
+                'image' : each['images']
             }
             listOfItems.append(temp)
 
@@ -163,6 +178,7 @@ class Kroger:
                 result.append(data)
         return result
 
+    # Main search function, only invoke this function
     def search(self, zipcode, radius, item):    
         groceries = self.__getGroceries(zipcode=zipcode, radius=radius)
 
@@ -173,3 +189,6 @@ class Kroger:
         else:
             return []
 
+
+groceries = Kroger()
+print(groceries.search(98036, 100, 'milk'))

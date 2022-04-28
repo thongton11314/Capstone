@@ -2,7 +2,6 @@ import json
 from sendEmail import *
 
 def lambda_sendEmail(event=None, context=None):
-     
     senderEmail = 'sinhvienngheouw@gmail.com'
     senderPassword = 'Ngheo123456.'
     receiverEmail = 'tonthong@uw.edu'
