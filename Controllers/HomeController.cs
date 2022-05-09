@@ -59,11 +59,15 @@ namespace CapstoneApp.Controllers
                 //at this point, if no data is available, throw some error
                 if (_raw_data == null)
                 {
+                    ViewBag.ErrorMessage = "Item Not Found In Database. Sorry For The Inconvinence";
                     return View("Error");
                 }
 
                 //transfer data to Views/SearchResult
-                ViewBag.storesList = ProcessData();
+                var result = ProcessData();
+                ViewBag.StoresList = result;
+                ViewBag.NumStores = result.Count;
+                ViewBag.Zipcode = input.ZipCode;
 
                 //display results to Views/SearchResult
                 return View("SearchResult");
@@ -91,11 +95,11 @@ namespace CapstoneApp.Controllers
                 XElement lat = locationElement.Element("lat");
                 XElement lng = locationElement.Element("lng");
 
-                ViewBag.address = address;
-                ViewBag.store = chain;
-                ViewBag.lat = lat.Value;
-                ViewBag.lng = lng.Value;
-                ViewBag.key = _gmap_api_key;
+                ViewBag.Address = address;
+                ViewBag.Store = chain;
+                ViewBag.Lat = lat.Value;
+                ViewBag.Lng = lng.Value;
+                ViewBag.Key = _gmap_api_key;
                 return View("Navigate");
             }
             catch(Exception)

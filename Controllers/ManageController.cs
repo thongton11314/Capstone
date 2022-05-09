@@ -109,8 +109,9 @@ namespace CapstoneApp.Controllers
                 {
                     //some data clean up for displaying purposes
                     IList<string> currItems = currUser.Items.ToLower().TrimEnd().Split(' ');
-                    ViewBag.userName = currUser.Email;
-                    ViewBag.items = currItems;
+                    ViewBag.UserName = currUser.Email;
+                    ViewBag.Items = currItems;
+                    ViewBag.ItemsAlert = HasNewsAlert();
                     return View("ViewItems");
                 }
 
@@ -143,7 +144,7 @@ namespace CapstoneApp.Controllers
                 if (currItems != null)
                 {
                     //check for duplicated items
-                    if (currItems.Contains(model.ItemName))
+                    if (currItems.Contains(model.ItemName.ToLower()))
                     {                     
                         return RedirectToAction("ViewItemsList", new { Message = ManageMessageId.ItemDuplicated });
                     }
